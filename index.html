@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>US Footy · Youth Soccer Media, Film & Features</title>
+<meta name="description" content="US Footy is the social media platform for US youth soccer. Player features, gameday video, photoshoots, and brand collabs in front of 30K+ followers across Instagram, TikTok, X, and YouTube." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" referrerpolicy="no-referrer" />
+
+<style>
+  :root {
+    /* Light theme, tinted toward brand green */
+    --bg:        oklch(0.987 0.004 156);
+    --bg-2:      oklch(0.968 0.006 156);
+    --bg-3:      oklch(0.948 0.008 156);
+    --bg-ink:    oklch(0.135 0.012 156);
+    --line:      oklch(0.12 0.02 156 / 0.08);
+    --line-2:    oklch(0.12 0.02 156 / 0.16);
+    --text:      oklch(0.165 0.018 156);
+    --text-dim:  oklch(0.42 0.014 156);
+    --text-mute: oklch(0.58 0.012 156);
+
+    --accent:    oklch(0.66 0.21 150);
+    --accent-2:  oklch(0.58 0.20 150);
+    --accent-soft: oklch(0.66 0.21 150 / 0.10);
+    --warn:      oklch(0.62 0.20 28);
+
+    /* Easing curves */
+    --e-out:     cubic-bezier(0.23, 1, 0.32, 1);
+    --e-out-q:   cubic-bezier(0.165, 0.84, 0.44, 1);
+    --e-in-out:  cubic-bezier(0.77, 0, 0.175, 1);
+    --e-drawer:  cubic-bezier(0.32, 0.72, 0, 1);
+
+    --maxw: 1280px;
+    --pad-x: 28px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  html, body { background: var(--bg); }
+  body {
+    color: var(--text);
+    font-family: 'Sora', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    line-height: 1.55;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection { background: var(--accent); color: var(--bg); }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+
+  .display {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0.01em;
+    line-height: 0.92;
+    font-weight: 400;
+  }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad-x); }
+
+  /* Scroll progress bar at very top */
+  .scroll-progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    width: 0%;
+    background: var(--accent);
+    z-index: 200;
+    transition: width 60ms linear;
+    box-shadow: 0 0 8px oklch(0.66 0.21 150 / 0.55);
+  }
+
+  /* ============================================
+     NAV
+     ============================================ */
+  .nav {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 80;
+    background: oklch(0.987 0.004 156 / 0.78);
+    backdrop-filter: saturate(160%) blur(14px);
+    -webkit-backdrop-filter: saturate(160%) blur(14px);
+    border-bottom: 1px solid transparent;
+    transition: background 240ms var(--e-out), border-color 240ms var(--e-out);
+  }
+  .nav.scrolled {
+    background: oklch(0.987 0.004 156 / 0.92);
+    border-bottom-color: var(--line);
+  }
+  .nav-inner {
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.1em;
+  }
+  .logo-mark {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--bg-ink);
+    color: var(--bg);
+    display: inline-grid;
+    place-items: center;
+    font-size: 0.85rem;
+    animation: ballSpin 14s linear infinite;
+    transition: transform 320ms var(--e-out);
+    will-change: transform;
+  }
+  @keyframes ballSpin {
+    to { transform: rotate(360deg); }
+  }
+  .logo:hover .logo-mark {
+    animation-duration: 1.4s;
+  }
+
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 32px;
+    align-items: center;
+  }
+  .nav-links a {
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--text-dim);
+    position: relative;
+    padding: 6px 0;
+    transition: color 200ms var(--e-out);
+  }
+  .nav-links a::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 -2px 0;
+    height: 1.5px;
+    width: 0;
+    background: var(--accent);
+    transition: width 320ms var(--e-out);
+    transform-origin: left;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--text); }
+  .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: var(--bg-ink);
+    color: var(--bg);
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: transform 200ms var(--e-out), background 200ms var(--e-out);
+  }
+  .nav-cta:hover { background: var(--accent); color: var(--bg-ink); transform: translateY(-1px); }
+  .nav-cta:active { transform: scale(0.97); }
+
+  .burger {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text);
+    cursor: pointer;
+    font-size: 1.25rem;
+    padding: 8px;
+  }
+
+  /* ============================================
+     HERO
+     ============================================ */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    padding: 130px 0 80px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: -1;
+    background:
+      radial-gradient(900px 460px at 18% 18%, oklch(0.66 0.21 150 / 0.06), transparent 60%),
+      radial-gradient(700px 600px at 92% 88%, oklch(0.66 0.21 150 / 0.045), transparent 60%);
+  }
+  .hero-grid {
+    position: absolute; inset: -10% -5%;
+    z-index: -2;
+    background-image:
+      linear-gradient(oklch(0.12 0.02 156 / 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(0.12 0.02 156 / 0.045) 1px, transparent 1px);
+    background-size: 72px 72px;
+    transform: skewY(-3.5deg);
+    transform-origin: top left;
+    mask-image: linear-gradient(180deg, black, transparent 92%);
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 14px 7px 7px;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    opacity: 0;
+    transform: translateY(12px);
+    animation: rise 700ms var(--e-out) 120ms forwards;
+  }
+  .badge .pill {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--bg-ink);
+    color: var(--bg);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .badge .pill.green { background: var(--accent); color: var(--bg-ink); }
+  .badge i { color: var(--accent); font-size: 0.9rem; }
+
+  .hero h1 {
+    font-size: clamp(3.2rem, 10vw, 9rem);
+    margin-top: 26px;
+  }
+  .hero h1 .ln {
+    display: block;
+    overflow: hidden;
+  }
+  .hero h1 .word {
+    display: inline-block;
+    transform: translateY(105%);
+    opacity: 0;
+    will-change: transform;
+  }
+  .hero h1 .word.in {
+    transform: translateY(0);
+    opacity: 1;
+    transition: transform 800ms var(--e-out), opacity 600ms var(--e-out);
+  }
+  .accent-word { color: var(--accent); }
+  .accent-word.underlined {
+    position: relative;
+    display: inline-block;
+  }
+  .accent-word.underlined::after {
+    content: "";
+    position: absolute;
+    left: 0; bottom: 0.04em;
+    height: 8px;
+    width: 100%;
+    background: var(--accent);
+    opacity: 0.18;
+    z-index: -1;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 700ms var(--e-out) 1.4s;
+  }
+  .accent-word.underlined.in::after { transform: scaleX(1); }
+
+  .hero-lede {
+    max-width: 60ch;
+    margin-top: 28px;
+    color: var(--text-dim);
+    font-size: clamp(1.02rem, 1.4vw, 1.18rem);
+    line-height: 1.65;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: rise 700ms var(--e-out) 1000ms forwards;
+  }
+  .hero-lede strong { color: var(--text); font-weight: 600; }
+
+  .hero-cta {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 34px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: rise 700ms var(--e-out) 1140ms forwards;
+  }
+  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+
+  .btn {
+    --bg-btn: transparent;
+    --fg-btn: var(--text);
+    --bd-btn: var(--line-2);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 24px;
+    border-radius: 999px;
+    border: 1px solid var(--bd-btn);
+    background: var(--bg-btn);
+    color: var(--fg-btn);
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 180ms var(--e-out), background 220ms var(--e-out), border-color 220ms var(--e-out), color 220ms var(--e-out), box-shadow 240ms var(--e-out);
+    will-change: transform;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .btn i { transition: transform 220ms var(--e-out); }
+  .btn:hover i { transform: translateX(3px); }
+
+  .btn--primary {
+    --bg-btn: var(--bg-ink);
+    --fg-btn: var(--bg);
+    --bd-btn: transparent;
+    box-shadow: 0 10px 30px -14px oklch(0.135 0.012 156 / 0.55);
+  }
+  .btn--primary:hover {
+    --bg-btn: var(--accent);
+    --fg-btn: var(--bg-ink);
+    transform: translateY(-1px);
+    box-shadow: 0 16px 36px -14px oklch(0.66 0.21 150 / 0.55);
+  }
+  .btn--ghost { color: var(--text); }
+  .btn--ghost:hover {
+    color: var(--accent);
+    --bd-btn: oklch(0.66 0.21 150 / 0.4);
+    background: var(--accent-soft);
+  }
+  .btn--green {
+    --bg-btn: var(--accent);
+    --fg-btn: var(--bg-ink);
+    --bd-btn: transparent;
+    box-shadow: 0 14px 30px -14px oklch(0.66 0.21 150 / 0.55);
+  }
+  .btn--green:hover { --bg-btn: oklch(0.7 0.21 150); transform: translateY(-1px); }
+
+  /* Hero stats */
+  .hero-stats {
+    margin-top: 60px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: rise 800ms var(--e-out) 1280ms forwards;
+  }
+  .hero-stats > div {
+    padding: 22px 18px;
+    border-right: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: relative;
+  }
+  .hero-stats > div:last-child { border-right: 0; }
+  .hero-stats > div::before {
+    content: "";
+    position: absolute;
+    inset: auto 0 -1px 0;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 480ms var(--e-out);
+  }
+  .hero-stats > div:hover::before { transform: scaleX(1); }
+  .hero-stats .n {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+    letter-spacing: 0.02em;
+    line-height: 1;
+    color: var(--text);
+  }
+  .hero-stats .l {
+    font-size: 0.75rem;
+    color: var(--text-mute);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .hero-stats .n .check { color: var(--accent); font-size: 0.7em; margin-left: 2px; }
+  .hero-stats .icons {
+    display: flex;
+    gap: 12px;
+    color: var(--text);
+    font-size: 1.1rem;
+    margin-top: 4px;
+  }
+  .hero-stats .icons i { transition: color 220ms var(--e-out), transform 280ms var(--e-out); }
+  .hero-stats .icons i:hover { color: var(--accent); transform: translateY(-2px); }
+
+  /* ============================================
+     MARQUEE TAPE
+     ============================================ */
+  .tape {
+    background: var(--bg-ink);
+    color: var(--bg);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
+    transform: skewY(-1.5deg);
+    margin: 0 -10px;
+  }
+  .tape-track {
+    display: flex;
+    gap: 56px;
+    padding: 22px 0;
+    white-space: nowrap;
+    animation: scrollX 26s linear infinite;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.5rem, 3vw, 2.4rem);
+    letter-spacing: 0.06em;
+    will-change: transform;
+  }
+  .tape:hover .tape-track { animation-play-state: paused; }
+  .tape-track span {
+    display: inline-flex;
+    align-items: center;
+    gap: 56px;
+  }
+  .tape-track .dot {
+    width: 10px; height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: inline-block;
+  }
+  @keyframes scrollX {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* ============================================
+     SECTION COMMON
+     ============================================ */
+  section {
+    position: relative;
+    padding: 130px 0;
+    scroll-margin-top: 80px;
+  }
+  .service-row { scroll-margin-top: 100px; }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--accent);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 22px;
+    height: 1px;
+    background: var(--accent);
+    animation: lineGrow 1.2s var(--e-out) forwards;
+    transform-origin: left;
+  }
+  @keyframes lineGrow {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+  .section-head {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    margin-bottom: 80px;
+    align-items: end;
+  }
+  .section-title {
+    font-size: clamp(2.2rem, 5.8vw, 4.6rem);
+    margin-top: 18px;
+    max-width: 16ch;
+  }
+  .section-head p {
+    color: var(--text-dim);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    max-width: 52ch;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 800ms var(--e-out), transform 800ms var(--e-out);
+  }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .delay-1 { transition-delay: 80ms; }
+  .delay-2 { transition-delay: 160ms; }
+  .delay-3 { transition-delay: 240ms; }
+  .delay-4 { transition-delay: 320ms; }
+
+  /* ============================================
+     SERVICES (editorial list)
+     ============================================ */
+  .services { border-top: 1px solid var(--line); }
+  .service-row {
+    display: grid;
+    grid-template-columns: 90px 1fr 1.2fr auto auto;
+    gap: 36px;
+    align-items: baseline;
+    padding: 42px 0;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    transition: padding-left 420ms var(--e-out), background 380ms var(--e-out);
+  }
+  .service-row::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 0 -100%;
+    background: linear-gradient(90deg, var(--accent-soft), transparent 80%);
+    z-index: -1;
+    transition: inset 600ms var(--e-out);
+  }
+  .service-row:hover::before { inset: 0 0 0 0; }
+  .service-row:hover { padding-left: 18px; }
+  .service-row::after {
+    content: "";
+    position: absolute;
+    left: 0; bottom: -1px;
+    height: 1px;
+    width: 0;
+    background: var(--accent);
+    transition: width 620ms var(--e-out);
+  }
+  .service-row:hover::after { width: 100%; }
+  .service-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    color: var(--text-mute);
+    letter-spacing: 0.1em;
+    transition: color 240ms var(--e-out);
+  }
+  .service-row:hover .service-num { color: var(--accent); }
+  .service-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.8rem, 3.4vw, 2.8rem);
+    letter-spacing: 0.02em;
+    line-height: 1;
+    transition: letter-spacing 380ms var(--e-out);
+  }
+  .service-row:hover .service-name { letter-spacing: 0.05em; }
+  .service-desc {
+    color: var(--text-dim);
+    font-size: 1rem;
+    line-height: 1.65;
+    max-width: 50ch;
+  }
+  .service-tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    padding: 6px 10px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    white-space: nowrap;
+    transition: color 220ms var(--e-out), border-color 220ms var(--e-out), background 220ms var(--e-out);
+  }
+  .service-row:hover .service-tag {
+    color: var(--accent);
+    border-color: oklch(0.66 0.21 150 / 0.45);
+    background: var(--accent-soft);
+  }
+  .service-chev {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    color: var(--text-mute);
+    transition: color 280ms var(--e-out), transform 360ms var(--e-out), background 280ms var(--e-out);
+  }
+  .service-row:hover .service-chev {
+    color: var(--bg);
+    background: var(--accent);
+    transform: translateX(4px) rotate(-15deg);
+  }
+
+  /* ============================================
+     REACH
+     ============================================ */
+  .reach {
+    background: var(--bg-2);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .reach-grid {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .reach-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.8rem, 7vw, 6rem);
+    line-height: 0.95;
+    letter-spacing: 0.01em;
+  }
+  .reach-headline .hi { color: var(--accent); }
+  .reach-headline .sub {
+    display: block;
+    font-family: 'Sora', sans-serif;
+    font-weight: 400;
+    font-size: clamp(1rem, 1.3vw, 1.12rem);
+    letter-spacing: 0;
+    color: var(--text-dim);
+    margin-top: 26px;
+    line-height: 1.65;
+    max-width: 48ch;
+  }
+
+  .platform-list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--line);
+  }
+  .platform-row {
+    display: grid;
+    grid-template-columns: 36px 1fr auto auto;
+    gap: 18px;
+    align-items: center;
+    padding: 22px 6px;
+    border-bottom: 1px solid var(--line);
+    color: var(--text);
+    position: relative;
+    transition: padding-left 360ms var(--e-out);
+  }
+  .platform-row::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--accent);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 360ms var(--e-out);
+  }
+  .platform-row:hover { padding-left: 22px; }
+  .platform-row:hover::before { transform: scaleY(1); }
+  .platform-row .pf-icon {
+    font-size: 1.4rem;
+    color: var(--text);
+    transition: color 240ms var(--e-out), transform 280ms var(--e-out);
+  }
+  .platform-row[data-pf="ig"]:hover .pf-icon { color: oklch(0.62 0.22 18); transform: scale(1.08); }
+  .platform-row[data-pf="tt"]:hover .pf-icon { color: oklch(0.66 0.18 220); transform: scale(1.08); }
+  .platform-row[data-pf="x"]:hover .pf-icon  { color: var(--bg-ink); transform: scale(1.08); }
+  .platform-row[data-pf="yt"]:hover .pf-icon { color: oklch(0.58 0.22 28); transform: scale(1.08); }
+  .platform-row .pf-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.04em;
+  }
+  .platform-row .pf-handle {
+    color: var(--text-dim);
+    font-size: 0.92rem;
+  }
+  .platform-row .pf-stat {
+    color: var(--text-mute);
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .platform-row .pf-go {
+    color: var(--text-mute);
+    transition: color 220ms var(--e-out), transform 280ms var(--e-out);
+  }
+  .platform-row:hover .pf-go {
+    color: var(--accent);
+    transform: translateX(4px) rotate(-12deg);
+  }
+
+  /* ============================================
+     PITCH (3D-tilt cards)
+     ============================================ */
+  .pitch { background: var(--bg); border-top: 1px solid var(--line); }
+  .pitch-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 22px;
+    margin-top: 60px;
+    perspective: 1200px;
+  }
+  .pitch-card {
+    padding: 36px 30px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    transition: transform 480ms var(--e-out), border-color 280ms var(--e-out), box-shadow 380ms var(--e-out);
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+  .pitch-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(380px 220px at var(--mx, 50%) var(--my, 30%), var(--accent-soft), transparent 60%);
+    opacity: 0;
+    transition: opacity 320ms var(--e-out);
+    pointer-events: none;
+  }
+  .pitch-card:hover {
+    border-color: oklch(0.66 0.21 150 / 0.42);
+    box-shadow: 0 24px 50px -28px oklch(0.135 0.012 156 / 0.25);
+  }
+  .pitch-card:hover::before { opacity: 1; }
+  .pitch-card > * { position: relative; z-index: 1; }
+  .pitch-card .k {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.4rem;
+    color: var(--accent);
+    line-height: 1;
+    letter-spacing: 0.02em;
+  }
+  .pitch-card h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.7rem;
+    letter-spacing: 0.03em;
+    margin: 14px 0 10px;
+  }
+  .pitch-card p {
+    color: var(--text-dim);
+    font-size: 0.98rem;
+    line-height: 1.6;
+  }
+
+  /* ============================================
+     NETWORK
+     ============================================ */
+  .network {
+    background: var(--bg-ink);
+    color: var(--bg);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 110px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .network::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(700px 400px at 20% 30%, oklch(0.66 0.21 150 / 0.18), transparent 60%),
+      radial-gradient(700px 500px at 90% 80%, oklch(0.66 0.21 150 / 0.10), transparent 65%);
+    pointer-events: none;
+  }
+  .net-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+  .net-left .coming {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 14px;
+    border-radius: 999px;
+    border: 1px solid oklch(0.66 0.21 150 / 0.5);
+    background: oklch(0.66 0.21 150 / 0.10);
+    color: var(--accent);
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+  .net-left .coming .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 0 oklch(0.66 0.21 150 / 0.65);
+    animation: pulse 1.8s infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 oklch(0.66 0.21 150 / 0.65); }
+    70%  { box-shadow: 0 0 0 10px oklch(0.66 0.21 150 / 0); }
+    100% { box-shadow: 0 0 0 0 oklch(0.66 0.21 150 / 0); }
+  }
+  .net-left h2 {
+    font-size: clamp(2.2rem, 5vw, 4.2rem);
+    margin-top: 18px;
+    line-height: 0.95;
+  }
+  .net-left p {
+    color: oklch(0.82 0.01 156);
+    margin-top: 22px;
+    line-height: 1.7;
+    max-width: 50ch;
+  }
+  .net-bullets {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 26px;
+    list-style: none;
+  }
+  .net-bullets li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: oklch(0.82 0.01 156);
+    font-size: 0.98rem;
+  }
+  .net-bullets li i { color: var(--accent); width: 14px; }
+
+  .notify-card {
+    background: oklch(1 0 0 / 0.04);
+    border: 1px solid oklch(1 0 0 / 0.10);
+    border-radius: 20px;
+    padding: 32px;
+    backdrop-filter: blur(2px);
+  }
+  .notify-card h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 0.03em;
+    margin-bottom: 8px;
+    color: var(--bg);
+  }
+  .notify-card .small {
+    color: oklch(0.78 0.01 156);
+    font-size: 0.92rem;
+    margin-bottom: 22px;
+  }
+  .notify-form { display: flex; gap: 10px; flex-wrap: wrap; }
+  .notify-form input[type="email"] {
+    flex: 1;
+    min-width: 200px;
+    background: oklch(1 0 0 / 0.06);
+    border: 1px solid oklch(1 0 0 / 0.12);
+    color: var(--bg);
+    font-family: inherit;
+    font-size: 0.95rem;
+    padding: 14px 18px;
+    border-radius: 999px;
+    transition: border-color 200ms var(--e-out), background 200ms var(--e-out);
+  }
+  .notify-form input[type="email"]:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: oklch(1 0 0 / 0.10);
+  }
+  .notify-form input[type="email"]::placeholder { color: oklch(0.7 0 0); }
+  .notify-form .btn--primary {
+    --bg-btn: var(--accent);
+    --fg-btn: var(--bg-ink);
+    box-shadow: 0 14px 30px -14px oklch(0.66 0.21 150 / 0.6);
+  }
+  .notify-form .btn--primary:hover { --bg-btn: oklch(0.7 0.21 150); }
+  .notify-msg {
+    margin-top: 14px;
+    color: var(--accent);
+    font-size: 0.9rem;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity 280ms var(--e-out), transform 280ms var(--e-out);
+  }
+  .notify-msg.show { opacity: 1; transform: translateY(0); }
+  .shake { animation: shake 360ms var(--e-out); }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+  }
+
+  /* ============================================
+     CONTACT
+     ============================================ */
+  .contact { background: var(--bg); border-top: 1px solid var(--line); }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 18px;
+    margin-top: 56px;
+  }
+  .contact-card {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 34px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: transform 380ms var(--e-out), border-color 280ms var(--e-out), background 280ms var(--e-out), box-shadow 380ms var(--e-out);
+  }
+  .contact-card:hover {
+    transform: translateY(-4px);
+    border-color: oklch(0.66 0.21 150 / 0.4);
+    background: var(--bg);
+    box-shadow: 0 18px 36px -22px oklch(0.135 0.012 156 / 0.25);
+  }
+  .contact-card .ico {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: grid; place-items: center;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 1.1rem;
+    transition: transform 360ms var(--e-out), background 280ms var(--e-out);
+  }
+  .contact-card:hover .ico {
+    transform: rotate(-8deg) scale(1.05);
+    background: var(--accent);
+    color: var(--bg);
+  }
+  .contact-card h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.65rem;
+    letter-spacing: 0.03em;
+  }
+  .contact-card p { color: var(--text-dim); font-size: 0.98rem; word-break: break-word; }
+  .contact-card .arr {
+    margin-top: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--accent);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .contact-card .arr i { transition: transform 240ms var(--e-out); }
+  .contact-card:hover .arr i { transform: translateX(4px); }
+
+  /* ============================================
+     FOOTER
+     ============================================ */
+  footer {
+    background: var(--bg-ink);
+    color: var(--bg);
+    border-top: 2px solid var(--accent);
+    padding: 40px 0 28px;
+  }
+  .foot-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+    align-items: center;
+  }
+  .foot-mid {
+    text-align: center;
+    color: oklch(0.72 0.01 156);
+    font-size: 0.88rem;
+  }
+  .foot-mid a:hover { color: var(--accent); }
+  .foot-right { display: flex; justify-content: flex-end; gap: 12px; }
+  .foot-right a {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    border: 1px solid oklch(1 0 0 / 0.14);
+    display: inline-grid;
+    place-items: center;
+    color: oklch(0.86 0.01 156);
+    transition: color 220ms var(--e-out), border-color 220ms var(--e-out), transform 280ms var(--e-out), background 240ms var(--e-out);
+  }
+  .foot-right a:hover {
+    color: var(--bg-ink);
+    background: var(--accent);
+    border-color: var(--accent);
+    transform: translateY(-3px) rotate(-6deg);
+  }
+  .foot-left {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    color: oklch(0.72 0.01 156);
+    font-size: 0.88rem;
+  }
+  .foot-left .logo-mark {
+    background: var(--bg);
+    color: var(--bg-ink);
+  }
+
+  /* ============================================
+     RESPONSIVE
+     ============================================ */
+  @media (max-width: 1024px) {
+    .section-head { grid-template-columns: 1fr; gap: 28px; }
+    .reach-grid, .net-inner { grid-template-columns: 1fr; gap: 48px; }
+    .pitch-grid, .contact-grid { grid-template-columns: 1fr 1fr; }
+    .service-row { grid-template-columns: 60px 1.4fr 2fr auto auto; gap: 22px; }
+  }
+
+  @media (max-width: 720px) {
+    section { padding: 96px 0; }
+    .nav-links {
+      position: fixed;
+      inset: 68px 0 auto 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: 14px 22px 28px;
+      background: oklch(0.987 0.004 156 / 0.96);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--line);
+      transform: translateY(-110%);
+      transition: transform 380ms var(--e-drawer);
+    }
+    .nav-links.open { transform: translateY(0); }
+    .nav-links li { border-bottom: 1px solid var(--line); }
+    .nav-links li:last-child { border-bottom: 0; padding-top: 12px; }
+    .nav-links a { padding: 18px 0; display: block; font-size: 1rem; }
+    .nav-links a::after { display: none; }
+    .burger { display: inline-flex; }
+    .nav-inner > .nav-cta { display: none; }
+
+    .hero { padding: 110px 0 60px; }
+    .hero-stats { grid-template-columns: 1fr 1fr; }
+    .hero-stats > div { border-right: 0; border-bottom: 1px solid var(--line); }
+    .hero-stats > div:nth-last-child(-n+2) { border-bottom: 0; }
+    .hero-stats > div:nth-child(odd) { border-right: 1px solid var(--line); }
+
+    .service-row {
+      grid-template-columns: 1fr auto;
+      gap: 8px 16px;
+      padding: 28px 0;
+    }
+    .service-num { grid-column: 1; font-size: 1rem; }
+    .service-tag { grid-column: 2; grid-row: 1; }
+    .service-chev { display: none; }
+    .service-name { grid-column: 1 / -1; }
+    .service-desc { grid-column: 1 / -1; }
+
+    .pitch-grid, .contact-grid { grid-template-columns: 1fr; }
+    .foot-grid { grid-template-columns: 1fr; text-align: center; gap: 18px; }
+    .foot-left, .foot-right { justify-content: center; }
+    .foot-left { flex-direction: column; gap: 8px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      transition-duration: 0.001ms !important;
+    }
+    .reveal { opacity: 1; transform: none; }
+    .hero h1 .word { opacity: 1; transform: none; }
+    .accent-word.underlined::after { transform: scaleX(1); }
+    .logo-mark { animation: none; }
+    .tape-track { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="logo" aria-label="US Footy">
+      <span class="logo-mark">⚽</span>
+      <span>US FOOTY</span>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#what-we-do" class="active">What We Do</a></li>
+      <li><a href="#reach">Reach</a></li>
+      <li><a href="#why">Why Us</a></li>
+      <li><a href="network.html">Network</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#contact" class="nav-cta">Work With Us <i class="fa-solid fa-arrow-right"></i></a></li>
+    </ul>
+    <button class="burger" id="burger" aria-label="Toggle menu" aria-expanded="false">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+
+  <div class="wrap">
+    <span class="badge">
+      <span class="pill green">Verified</span>
+      <i class="fa-brands fa-instagram"></i>
+      <span><strong style="color: var(--text); font-weight: 600;">30K+</strong> across all platforms</span>
+    </span>
+
+    <h1 class="display" id="hero-h1">
+      <span class="ln"><span class="word">Film,</span> <span class="word">features,</span></span>
+      <span class="ln"><span class="word accent-word underlined">and reach</span> <span class="word">for the</span></span>
+      <span class="ln"><span class="word">next</span> <span class="word">generation.</span></span>
+    </h1>
+
+    <p class="hero-lede"><strong>US Footy is the social media platform for US youth soccer.</strong> We feature players on our pages, shoot gameday video and photo, and partner with brands, all in front of a national audience of players, families, coaches, and clubs.</p>
+
+    <div class="hero-cta">
+      <a class="btn btn--primary" href="#what-we-do">See What We Do <i class="fa-solid fa-arrow-right"></i></a>
+      <a class="btn btn--ghost" href="#collab">Book a Collab <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+
+    <div class="hero-stats" aria-label="Audience snapshot">
+      <div>
+        <span class="n"><span class="count" data-target="30" data-suffix="K+">0</span></span>
+        <span class="l">Total Reach · All Platforms</span>
+      </div>
+      <div>
+        <span class="n"><span class="count" data-target="474" data-suffix="">0</span></span>
+        <span class="l">Posts Published</span>
+      </div>
+      <div>
+        <span class="n">Verified <i class="fa-solid fa-circle-check check"></i></span>
+        <span class="l">Instagram · @usfooty</span>
+      </div>
+      <div>
+        <span class="n">4</span>
+        <span class="l">Active Platforms</span>
+        <span class="icons">
+          <i class="fa-brands fa-instagram"></i>
+          <i class="fa-brands fa-tiktok"></i>
+          <i class="fa-brands fa-x-twitter"></i>
+          <i class="fa-brands fa-youtube"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ MARQUEE TAPE ============ -->
+<div class="tape" aria-hidden="true">
+  <div class="tape-track">
+    <span>Highlight Reels <span class="dot"></span></span>
+    <span>Player Features <span class="dot"></span></span>
+    <span>Social Distribution <span class="dot"></span></span>
+    <span>Brand Collabs <span class="dot"></span></span>
+    <span>Club Coverage <span class="dot"></span></span>
+    <span>Recruiting Tape <span class="dot"></span></span>
+    <span>Highlight Reels <span class="dot"></span></span>
+    <span>Player Features <span class="dot"></span></span>
+    <span>Social Distribution <span class="dot"></span></span>
+    <span>Brand Collabs <span class="dot"></span></span>
+    <span>Club Coverage <span class="dot"></span></span>
+    <span>Recruiting Tape <span class="dot"></span></span>
+  </div>
+</div>
+
+<!-- ============ WHAT WE DO ============ -->
+<section class="services" id="what-we-do">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow">What We Do</span>
+        <h2 class="section-title display">Three ways to work with us.</h2>
+      </div>
+      <p>We are the verified social media platform for US youth soccer. Get featured on our pages, book a gameday shoot, or partner with us as a brand. Straight to the point.</p>
+    </div>
+
+    <div class="service-list">
+      <a class="service-row reveal" href="#contact" id="svc-feature">
+        <span class="service-num">01</span>
+        <span class="service-name">Player Feature</span>
+        <span class="service-desc">Get featured on the US Footy page. Your moments in front of 30K+ players, coaches, parents, and college programs across Instagram, TikTok, X, and YouTube.</span>
+        <span class="service-tag">On Our Pages</span>
+        <span class="service-chev"><i class="fa-solid fa-arrow-right"></i></span>
+      </a>
+      <a class="service-row reveal delay-1" href="#contact" id="svc-shoot">
+        <span class="service-num">02</span>
+        <span class="service-name">Gameday Video &amp; Photoshoot</span>
+        <span class="service-desc">On-site videography and photography for matches, training, and player content. Footage you own, edits built to post.</span>
+        <span class="service-tag">Onsite · Same Week</span>
+        <span class="service-chev"><i class="fa-solid fa-arrow-right"></i></span>
+      </a>
+      <a class="service-row reveal delay-2" href="#contact" id="collab">
+        <span class="service-num">03</span>
+        <span class="service-name">Brand Ads &amp; Collabs</span>
+        <span class="service-desc">Put your brand in front of a soccer-native audience. Sponsored posts, integrations, and campaign partnerships across all four platforms.</span>
+        <span class="service-tag">Partnership</span>
+        <span class="service-chev"><i class="fa-solid fa-arrow-right"></i></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REACH ============ -->
+<section class="reach" id="reach">
+  <div class="wrap">
+    <div class="reach-grid">
+      <div class="reveal">
+        <span class="eyebrow">Reach</span>
+        <h2 class="reach-headline display">
+          A national audience<br>
+          <span class="hi">of soccer obsessives.</span>
+          <span class="sub"><strong style="color: var(--text);">30K+ followers across Instagram, TikTok, X, and YouTube.</strong> The real story is who they are: players, parents, coaches, and college programs across the country, paying attention to youth soccer every day.</span>
+        </h2>
+      </div>
+
+      <div class="reveal delay-1">
+        <div class="platform-list">
+          <a class="platform-row" data-pf="ig" href="https://www.instagram.com/usfooty/" target="_blank" rel="noopener">
+            <i class="pf-icon fa-brands fa-instagram"></i>
+            <span class="pf-name">Instagram</span>
+            <span class="pf-handle">@usfooty</span>
+            <span class="pf-go"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="pf-stat" style="grid-column: 2 / 4;">Verified · 474 posts · primary feed</span>
+          </a>
+          <a class="platform-row" data-pf="tt" href="https://www.tiktok.com/@u.s.footy" target="_blank" rel="noopener">
+            <i class="pf-icon fa-brands fa-tiktok"></i>
+            <span class="pf-name">TikTok</span>
+            <span class="pf-handle">@u.s.footy</span>
+            <span class="pf-go"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="pf-stat" style="grid-column: 2 / 4;">Short-form reels &amp; highlight cuts</span>
+          </a>
+          <a class="platform-row" data-pf="x" href="https://x.com/USFootyofficial" target="_blank" rel="noopener">
+            <i class="pf-icon fa-brands fa-x-twitter"></i>
+            <span class="pf-name">X / Twitter</span>
+            <span class="pf-handle">@USFootyofficial</span>
+            <span class="pf-go"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="pf-stat" style="grid-column: 2 / 4;">News, takes, real-time match content</span>
+          </a>
+          <a class="platform-row" data-pf="yt" href="https://www.youtube.com/@u.sfooty" target="_blank" rel="noopener">
+            <i class="pf-icon fa-brands fa-youtube"></i>
+            <span class="pf-name">YouTube</span>
+            <span class="pf-handle">@u.sfooty</span>
+            <span class="pf-go"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="pf-stat" style="grid-column: 2 / 4;">Long-form features and full reels</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY US ============ -->
+<section class="pitch" id="why">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow">Why US Footy</span>
+        <h2 class="section-title display">Built around the player.</h2>
+      </div>
+      <p>Most youth soccer content gets shot and forgotten. We treat every player like a professional subject and every piece of content like it has to earn the scroll.</p>
+    </div>
+
+    <div class="pitch-grid" id="pitch-grid">
+      <div class="pitch-card reveal" data-tilt>
+        <div class="k">01</div>
+        <h3>Verified Reach</h3>
+        <p>30K+ across all platforms, headlined by a verified Instagram channel. Your footage lands where people who care about the game are watching.</p>
+      </div>
+      <div class="pitch-card reveal delay-1" data-tilt>
+        <div class="k">02</div>
+        <h3>Platform-Native</h3>
+        <p>Cuts built for IG Reels, TikTok, YouTube, and X. We edit to the format, not against it. Hooks in the first second, payoff in the next ten.</p>
+      </div>
+      <div class="pitch-card reveal delay-2" data-tilt>
+        <div class="k">03</div>
+        <h3>Player-First Edit</h3>
+        <p>Your story, your moments, your touch. Edits showcase reads off the ball, not just the goals. Built to travel with recruiters and coaches.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NETWORK TEASER ============ -->
+<section class="network" id="network">
+  <div class="wrap">
+    <div class="net-inner">
+      <div class="net-left reveal">
+        <span class="coming"><span class="dot"></span> New · Coming Soon</span>
+        <h2 class="display">US Footy Network</h2>
+        <p>A mentorship platform connecting high school and college-bound players with current and former college soccer players. Recruiting decisions, film analysis, real mentorship from people who have been through it.</p>
+        <ul class="net-bullets">
+          <li><i class="fa-solid fa-compass"></i> Career decisions &amp; recruiting</li>
+          <li><i class="fa-solid fa-video"></i> Player analysis &amp; development</li>
+          <li><i class="fa-solid fa-people-group"></i> Mentorship from college players</li>
+        </ul>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px;">
+          <a class="btn btn--green" href="network.html">Explore the Network <i class="fa-solid fa-arrow-right"></i></a>
+          <a class="btn btn--ghost" href="network.html#book" style="color: var(--bg); border-color: oklch(1 0 0 / 0.2);">Book a Free Call <i class="fa-solid fa-calendar"></i></a>
+        </div>
+      </div>
+
+      <div class="reveal delay-1" style="text-align: center;">
+        <div style="font-family: 'Bebas Neue', sans-serif; font-size: clamp(4rem, 10vw, 7rem); line-height: 0.95; letter-spacing: 0.02em; color: var(--accent);">Mentors</div>
+        <div style="font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem, 6vw, 4rem); line-height: 0.95; letter-spacing: 0.02em; color: var(--bg);">in your corner.</div>
+        <p style="color: oklch(0.78 0.01 156); margin-top: 24px; max-width: 36ch; margin-left: auto; margin-right: auto;">Current and former college soccer players. Eventually pros. Built for the next generation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow">Work With Us</span>
+        <h2 class="section-title display">Feature, collab, or shoot.</h2>
+      </div>
+      <p>Player feature, brand partnership, club coverage, or one-off shoot. Reach out and tell us what you have in mind.</p>
+    </div>
+
+    <div class="contact-grid">
+      <a class="contact-card reveal" href="mailto:U.S.Footy1@gmail.com">
+        <span class="ico"><i class="fa-solid fa-envelope"></i></span>
+        <h3>Email</h3>
+        <p>U.S.Footy1@gmail.com</p>
+        <span class="arr">Send a Note <i class="fa-solid fa-arrow-right"></i></span>
+      </a>
+      <a class="contact-card reveal delay-1" href="https://www.instagram.com/usfooty/" target="_blank" rel="noopener">
+        <span class="ico"><i class="fa-brands fa-instagram"></i></span>
+        <h3>Instagram DM</h3>
+        <p>@usfooty, fastest reply</p>
+        <span class="arr">Message Us <i class="fa-solid fa-arrow-right"></i></span>
+      </a>
+      <a class="contact-card reveal delay-2" href="#reach">
+        <span class="ico"><i class="fa-solid fa-globe"></i></span>
+        <h3>All Platforms</h3>
+        <p>TikTok, X, YouTube, Instagram</p>
+        <span class="arr">See Channels <i class="fa-solid fa-arrow-right"></i></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap foot-grid">
+    <div class="foot-left">
+      <span class="logo"><span class="logo-mark">⚽</span><span>US FOOTY</span></span>
+      <span>&copy; 2025</span>
+    </div>
+    <div class="foot-mid">
+      <a href="https://usfooty.org">usfooty.org</a> · <a href="mailto:U.S.Footy1@gmail.com">U.S.Footy1@gmail.com</a>
+    </div>
+    <div class="foot-right">
+      <a href="https://www.instagram.com/usfooty/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="https://www.tiktok.com/@u.s.footy" target="_blank" rel="noopener" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+      <a href="https://x.com/USFootyofficial" target="_blank" rel="noopener" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+      <a href="https://www.youtube.com/@u.sfooty" target="_blank" rel="noopener" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function() {
+  var burger = document.getElementById('burger');
+  var navLinks = document.getElementById('nav-links');
+  var nav = document.getElementById('nav');
+  var progress = document.getElementById('scroll-progress');
+
+  /* ----- Smooth scroll for in-page anchors (offset for fixed nav) ----- */
+  var NAV_OFFSET = 72;
+  document.addEventListener('click', function(e) {
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href === '#' || href.length < 2) return;
+    var target = document.querySelector(href);
+    if (!target) return;
+    e.preventDefault();
+    var top = target.getBoundingClientRect().top + window.pageYOffset - NAV_OFFSET;
+    window.scrollTo({ top: top, behavior: 'smooth' });
+    if (history.pushState) history.pushState(null, '', href);
+  });
+
+  /* ----- Mobile nav ----- */
+  burger.addEventListener('click', function() {
+    var open = navLinks.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    burger.innerHTML = open ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
+  });
+  navLinks.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      if (navLinks.classList.contains('open')) {
+        navLinks.classList.remove('open');
+        burger.setAttribute('aria-expanded', 'false');
+        burger.innerHTML = '<i class="fa-solid fa-bars"></i>';
+      }
+    });
+  });
+
+  /* ----- Scroll progress + nav state ----- */
+  function onScroll() {
+    var h = document.documentElement;
+    var scrolled = (h.scrollTop || document.body.scrollTop);
+    var height = h.scrollHeight - h.clientHeight;
+    var pct = height > 0 ? (scrolled / height) * 100 : 0;
+    progress.style.width = pct + '%';
+    nav.classList.toggle('scrolled', scrolled > 24);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* ----- Active section in nav ----- */
+  var ids = ['what-we-do','reach','why','network','contact'];
+  var sections = ids.map(function(id) { return document.getElementById(id); }).filter(Boolean);
+  var linkMap = {};
+  navLinks.querySelectorAll('a').forEach(function(a) {
+    var href = a.getAttribute('href') || '';
+    if (href.startsWith('#')) linkMap[href.slice(1)] = a;
+  });
+  var navItems = ids.map(function(id) { return linkMap[id]; }).filter(Boolean);
+
+  var sectionObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        navItems.forEach(function(n) { n.classList.remove('active'); });
+        var active = linkMap[entry.target.id];
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+  sections.forEach(function(s) { sectionObs.observe(s); });
+
+  /* ----- Reveal on scroll ----- */
+  var revealObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        revealObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+  document.querySelectorAll('.reveal').forEach(function(el) { revealObs.observe(el); });
+
+  /* ----- Hero word stagger ----- */
+  var words = document.querySelectorAll('#hero-h1 .word');
+  words.forEach(function(w, i) {
+    setTimeout(function() { w.classList.add('in'); }, 280 + i * 110);
+  });
+  setTimeout(function() {
+    document.querySelectorAll('#hero-h1 .accent-word.underlined').forEach(function(el) { el.classList.add('in'); });
+  }, 280 + words.length * 110 + 200);
+
+  /* ----- Counter animation on hero stats ----- */
+  var counterObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (!entry.isIntersecting) return;
+      var el = entry.target;
+      var target = parseInt(el.getAttribute('data-target'), 10);
+      var suffix = el.getAttribute('data-suffix') || '';
+      var duration = 1400;
+      var start = performance.now();
+      function tick(now) {
+        var t = Math.min(1, (now - start) / duration);
+        var eased = 1 - Math.pow(1 - t, 3);
+        var val = Math.round(target * eased);
+        el.textContent = val + suffix;
+        if (t < 1) requestAnimationFrame(tick);
+        else el.textContent = target + suffix;
+      }
+      requestAnimationFrame(tick);
+      counterObs.unobserve(el);
+    });
+  }, { threshold: 0.4 });
+  document.querySelectorAll('.count').forEach(function(el) { counterObs.observe(el); });
+
+  /* ----- 3D tilt on pitch cards ----- */
+  var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!prefersReduced) {
+    document.querySelectorAll('[data-tilt]').forEach(function(card) {
+      var rect;
+      function onEnter() { rect = card.getBoundingClientRect(); }
+      function onMove(e) {
+        if (!rect) rect = card.getBoundingClientRect();
+        var x = (e.clientX - rect.left) / rect.width;
+        var y = (e.clientY - rect.top) / rect.height;
+        var rx = (0.5 - y) * 5;
+        var ry = (x - 0.5) * 5;
+        card.style.transform = 'perspective(1000px) rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg) translateY(-4px)';
+        card.style.setProperty('--mx', (x * 100) + '%');
+        card.style.setProperty('--my', (y * 100) + '%');
+      }
+      function onLeave() {
+        card.style.transform = '';
+        rect = null;
+      }
+      card.addEventListener('mouseenter', onEnter);
+      card.addEventListener('mousemove', onMove);
+      card.addEventListener('mouseleave', onLeave);
+    });
+  }
+
+  /* Notify form lives on network.html now */
+})();
+</script>
+</body>
+</html>
