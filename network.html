@@ -89,9 +89,11 @@
     width: 30px; height: 30px; border-radius: 50%;
     background: var(--bg-ink); color: var(--bg);
     display: inline-grid; place-items: center;
-    font-size: 0.85rem;
+    font-size: 1.05rem;
+    line-height: 1;
     animation: ballSpin 14s linear infinite;
   }
+  .logo-mark i { display: block; line-height: 1; }
   @keyframes ballSpin { to { transform: rotate(360deg); } }
   .logo:hover .logo-mark { animation-duration: 1.4s; }
   .nav-links { list-style: none; display: flex; gap: 32px; align-items: center; }
@@ -753,7 +755,7 @@
 <nav class="nav" id="nav">
   <div class="wrap nav-inner">
     <a href="index.html" class="logo" aria-label="US Footy">
-      <span class="logo-mark">⚽</span>
+      <span class="logo-mark"><i class="fa-solid fa-futbol"></i></span>
       <span>US FOOTY</span>
     </a>
     <ul class="nav-links" id="nav-links">
@@ -777,7 +779,7 @@
 
   <div class="wrap hero-grid-inner">
     <div>
-      <span class="coming"><span class="dot"></span> Coming Soon · Mentorship Network</span>
+      <span class="coming"><span class="dot"></span> Mentorship Network</span>
       <h1 class="display">
         <span class="accent-word">Mentors</span><br>
         in your corner.
@@ -820,19 +822,19 @@
 
     <div class="pillar-grid">
       <div class="pillar-card reveal" data-tilt>
-        <span class="ico"><i class="fa-solid fa-compass"></i></span>
-        <h3>Career Decisions</h3>
-        <p>Navigate what level is right for you, which programs fit your profile, and how to position yourself for the best opportunity.</p>
+        <span class="ico"><i class="fa-solid fa-graduation-cap"></i></span>
+        <h3>Maximize Your College Potential</h3>
+        <p>Get the inside track on the recruiting process from players who just lived it. Learn what college coaches actually look for, which programs fit your profile, and how to position yourself to play at the next level.</p>
       </div>
       <div class="pillar-card reveal delay-1" data-tilt>
+        <span class="ico"><i class="fa-solid fa-handshake"></i></span>
+        <h3>Mentorship</h3>
+        <p>Build confidence, develop the right mindset, and get guidance from mentors who understand the journey firsthand.</p>
+      </div>
+      <div class="pillar-card reveal delay-2" data-tilt>
         <span class="ico"><i class="fa-solid fa-video"></i></span>
         <h3>Player Analysis &amp; Development</h3>
         <p>Get your film reviewed and receive real, position-specific feedback from players who have been through it.</p>
-      </div>
-      <div class="pillar-card reveal delay-2" data-tilt>
-        <span class="ico"><i class="fa-solid fa-dumbbell"></i></span>
-        <h3>Mentorship</h3>
-        <p>Build confidence, develop the right mindset, and get guidance from mentors who understand the journey firsthand.</p>
       </div>
     </div>
   </div>
@@ -934,7 +936,7 @@
 <footer>
   <div class="wrap foot-grid">
     <div class="foot-left">
-      <span class="logo"><span class="logo-mark">⚽</span><span>US FOOTY</span></span>
+      <span class="logo"><span class="logo-mark"><i class="fa-solid fa-futbol"></i></span><span>US FOOTY</span></span>
       <span>&copy; 2026</span>
     </div>
     <div class="foot-mid">

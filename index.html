@@ -115,11 +115,13 @@
     color: var(--bg);
     display: inline-grid;
     place-items: center;
-    font-size: 0.85rem;
+    font-size: 1.05rem;
+    line-height: 1;
     animation: ballSpin 14s linear infinite;
     transition: transform 320ms var(--e-out);
     will-change: transform;
   }
+  .logo-mark i { display: block; line-height: 1; }
   @keyframes ballSpin {
     to { transform: rotate(360deg); }
   }
@@ -1079,7 +1081,7 @@
 <nav class="nav" id="nav">
   <div class="wrap nav-inner">
     <a href="#top" class="logo" aria-label="US Footy">
-      <span class="logo-mark">⚽</span>
+      <span class="logo-mark"><i class="fa-solid fa-futbol"></i></span>
       <span>US FOOTY</span>
     </a>
     <ul class="nav-links" id="nav-links">
@@ -1288,13 +1290,13 @@
   <div class="wrap">
     <div class="net-inner">
       <div class="net-left reveal">
-        <span class="coming"><span class="dot"></span> New · Coming Soon</span>
+        <span class="coming"><span class="dot"></span> Now Live</span>
         <h2 class="display">US Footy Network</h2>
         <p>A mentorship platform connecting high school and college-bound players with current and former college soccer players. Recruiting decisions, film analysis, real mentorship from people who have been through it.</p>
         <ul class="net-bullets">
-          <li><i class="fa-solid fa-compass"></i> Career decisions &amp; recruiting</li>
+          <li><i class="fa-solid fa-graduation-cap"></i> Maximize your college potential</li>
+          <li><i class="fa-solid fa-handshake"></i> Mentorship from college players</li>
           <li><i class="fa-solid fa-video"></i> Player analysis &amp; development</li>
-          <li><i class="fa-solid fa-people-group"></i> Mentorship from college players</li>
         </ul>
         <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px;">
           <a class="btn btn--green" href="network.html">Explore the Network <i class="fa-solid fa-arrow-right"></i></a>
@@ -1349,7 +1351,7 @@
 <footer>
   <div class="wrap foot-grid">
     <div class="foot-left">
-      <span class="logo"><span class="logo-mark">⚽</span><span>US FOOTY</span></span>
+      <span class="logo"><span class="logo-mark"><i class="fa-solid fa-futbol"></i></span><span>US FOOTY</span></span>
       <span>&copy; 2026</span>
     </div>
     <div class="foot-mid">
